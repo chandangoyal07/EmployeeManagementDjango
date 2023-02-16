@@ -34,7 +34,7 @@
                   <tbody>
                     {% for e in emps %}
                     <tr>
-                      <td>{{e.id}}</td>
+                      <td>{{forloop.counter}}</td>
                       <td>{{e.name}}</td>
                       <td>{{e.emp_id}}</td>
                       <td>{{e.phone}}</td>
