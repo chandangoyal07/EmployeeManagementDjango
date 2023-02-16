@@ -10,3 +10,6 @@ class Emp(models.Model):
     address=models.CharField(max_length=200)
     working=models.CharField(max_length=100,default=True)
     department=models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.name
