@@ -30,7 +30,7 @@ def add_emp(request):
         e.name=emp_name # I am getting emp_nme from input tag in add_emp.html so i have to save it in my models.py model Emp so for that I am writing e.name=emp_name
         e.email=emp_email
         e.emp_id=emp_id
-        e.phone=emp_phone
+        e.phone=emp_phone 
         e.address=emp_address
         e.department=emp_department
         if emp_working is None:
@@ -51,4 +51,37 @@ def add_emp(request):
 def delete_emp(request,emp_id):
     emp= Emp.objects.get(pk=emp_id)
     emp.delete()
+    return HttpResponseRedirect('/emp/home/')
+
+def update_emp(request,emp_id):
+    emp= Emp.objects.get(pk=emp_id)
+    return render(request,'emp/update_emp.html/',{'emp':emp})
+
+
+def do_update_emp(request,emp_id):
+    if request.method == 'POST':
+        emp_name = request.POST.get("emp_name")
+        emp_id_temp = request.POST.get("emp_id")
+        emp_email = request.POST.get("emp_email")
+        emp_phone = request.POST.get("emp_phone")
+        emp_address = request.POST.get("emp_address")
+        emp_working = request.POST.get("emp_working")
+        emp_department = request.POST.get("emp_department")
+    
+    e= Emp.objects.get(pk=emp_id)
+
+    e.name=emp_name # I am getting emp_nme from input tag in add_emp.html so i have to save it in my models.py model Emp so for that I am writing e.name=emp_name
+    e.email=emp_email
+    e.emp_id=emp_id_temp
+    e.phone=emp_phone
+    e.address=emp_address
+    e.department=emp_department
+    if emp_working is None:
+        e.working=False
+    else:
+        e.working=True
+
+        # save the object
+    e.save()
+
     return HttpResponseRedirect('/emp/home/')
